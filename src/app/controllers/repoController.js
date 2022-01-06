@@ -21,11 +21,31 @@ router.post('/add/:id', async (req, res) => {
     }
 });
 
-router.get('/find/all/:id', async function (req, res) {
-    const id = req.params.id;
+router.get('/find/all/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
 
-    const user = await User.findById({ _id:id });
-    return res.send({ repos: user.repos });
+        const user = await User.findById({ _id:id });
+        res.send({status: 200, message: 'succesfully found it', repos: user.repos});
+    } catch (err) {
+        return res.status(404).send({status: 404, message: "there's no user with the given id", error: err.message});
+    }
+});
+
+router.get('/find/by/name/:name/by/user/:user', async (req, res) => {
+    try {
+        const repoName = req.params.name;
+        const userName = req.body.user;
+
+        const user = await User.findOne({ userName });
+        user.repos.map((repo) => {
+            if (repo.name === repoName) 
+                return res.send({status: 200, message: 'succesfully found it', foundRepo: repo});
+        });
+    } catch (err) {
+        return res.status(404).send({status: 404, message: "there's no repo with the given name", error: err.message});
+    }
+
 });
 
 module.exports = app => app.use('/repos', router);
