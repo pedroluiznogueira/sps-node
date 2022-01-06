@@ -48,4 +48,15 @@ router.get('/find/by/name/:name/by/user/:user', async (req, res) => {
 
 });
 
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        await User.findByIdAndDelete({ _id:id });
+        res.send({status: 200, message: 'succesfully deleted it'});
+    } catch (err) {
+        return res.status(404).send({status: 404, message: "there's no user with the given id", error: err.message});
+    }
+});
+
 module.exports = app => app.use('/repos', router);
