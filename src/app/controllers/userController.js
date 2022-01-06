@@ -36,7 +36,10 @@ router.post('/authenticate', async (req, res) => {
         if (!compare)
             return res.status(404).send({ error: 'invalid password'});
 
-            return res.status(200).send({status: 200, message: 'user authenticated', user: user}); 
+        // removing it from response
+        user.password = undefined;
+
+        return res.status(200).send({status: 200, message: 'user authenticated', user: user}); 
     } catch (err) {
         return res.status(404).send({status: 404, message: 'failed to authenticate', error: err.message});
     }
