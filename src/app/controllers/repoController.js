@@ -6,7 +6,6 @@ const router = express.Router();
 router.use(authMiddleware);
 
 router.post('/add/:id', async (req, res) => {
-
     try {
         const { email, repos } = req.body;
         const id = req.params.id;
@@ -51,17 +50,17 @@ router.get('/find/by/name/:name/by/id/:id', async (req, res) => {
 
 });
 
-router.delete('/delete/by/name/:name/by/user/:user', async (req, res) => {
+router.delete('/delete/by/name/:name/by/id/:id', async (req, res) => {
     try {
         const repoName = req.params.name;
-        const userName = req.body.user;
+        const id = req.params.id;
 
-        const user = await User.findOne({ userName });
+        const user = await User.findById({ _id:id });
         await user.repos.map( async (repo) => {
             if (repo.name === repoName) {
                 user.repos = user.repos.filter((repo) => repo.name !== repoName);
                 const upd = await User.findByIdAndUpdate(user.id, user);
-                res.send({status: 200, message: 'succesfully deleted', upd: upd});
+                res.send({status: 200, message: 'succesfully deleted', upd: upd, repo: repo});
             }
         });
     } catch (err) {
