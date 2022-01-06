@@ -35,12 +35,12 @@ router.get('/find/all/:id', async (req, res) => {
     }
 });
 
-router.get('/find/by/name/:name/by/user/:user', async (req, res) => {
+router.get('/find/by/name/:name/by/id/:id', async (req, res) => {
     try {
         const repoName = req.params.name;
-        const userName = req.body.user;
+        const id = req.params.id;
 
-        const user = await User.findOne({ userName });
+        const user = await User.findById({ _id:id });
         user.repos.map((repo) => {
             if (repo.name === repoName) 
                 return res.send({status: 200, message: 'succesfully found it', foundRepo: repo});
