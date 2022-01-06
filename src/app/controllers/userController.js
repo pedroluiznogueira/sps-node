@@ -1,8 +1,15 @@
 const bcrypt = require("bcryptjs");
 const express = require("express");
+const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-
+const auth = require("../../config/auth");
 const router = express.Router();
+
+const generateToken = (params = {}) => {
+    return jwt.sign(params, auth.secret, {
+        expiresIn: 86400
+    });
+}
 
 router.post('/register', async (req, res) => {
     const { email } = req.body;
@@ -16,7 +23,9 @@ router.post('/register', async (req, res) => {
         // don't want to send password back
         user.password = undefined;
 
-        return res.status(301).send({status: 301, message: 'user created', user: user}); 
+        const token = generateToken({ id: user.id });
+
+        return res.status(301).send({status: 301, message: 'user created', user: user, token: token}); 
     } catch (err) {
         return res.status(404).send({status: 404, message: 'failed to create user', error: err.message});
     }
