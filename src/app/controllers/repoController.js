@@ -48,12 +48,19 @@ router.get('/find/by/name/:name/by/user/:user', async (req, res) => {
 
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/by/name/:name/by/user/:user', async (req, res) => {
     try {
-        const id = req.params.id;
+        const repoName = req.params.name;
+        const userName = req.body.user;
 
-        await User.findByIdAndDelete({ _id:id });
-        res.send({status: 200, message: 'succesfully deleted it'});
+        const user = await User.findOne({ userName });
+        await user.repos.map( async (repo) => {
+            if (repo.name === repoName) {
+                user.repos = user.repos.filter((repo) => repo.name !== repoName);
+                const upd = await User.findByIdAndUpdate(user.id, user);
+                res.send({status: 200, message: 'succesfully deleted', upd: upd});
+            }
+        });
     } catch (err) {
         return res.status(404).send({status: 404, message: "there's no user with the given id", error: err.message});
     }
