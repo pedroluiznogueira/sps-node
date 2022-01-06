@@ -14,6 +14,8 @@ const generateToken = (params = {}) => {
 router.post('/register', async (req, res) => {
     const { email } = req.body;
 
+    console.log(req.body);
+
     try {
         if (await User.findOne( {email} ))
             return res.status(400).send({message: 'email already exists'})
@@ -48,7 +50,9 @@ router.post('/authenticate', async (req, res) => {
         // removing it from response
         user.password = undefined;
 
-        return res.status(200).send({status: 200, message: 'user authenticated', user: user}); 
+        const token = generateToken({ id: user.id });
+
+        return res.status(200).send({status: 200, message: 'user authenticated', user: user, token: token}); 
     } catch (err) {
         return res.status(404).send({status: 404, message: 'failed to authenticate', error: err.message});
     }
