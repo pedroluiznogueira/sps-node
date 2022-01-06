@@ -5,11 +5,12 @@ const User = require("../models/user");
 const router = express.Router();
 router.use(authMiddleware);
 
-router.post('/add', async (req, res) => {
+router.post('/add/:id', async (req, res) => {
     try {
         const { email, repos } = req.body;
-        
-        const user = await User.findOne({ email });
+        const id = req.params.id;
+
+        const user = await User.findById({ _id:id });
         repos.map(repo => user.repos.push(repo));
         const upd = await User.findByIdAndUpdate(user.id, user);
 
@@ -18,6 +19,10 @@ router.post('/add', async (req, res) => {
     } catch (err) {
         return res.status(404).send({status: 404, message: 'failed to update', error: err.message});
     }
+});
+
+router.get('/find/all', async function (req, res) {
+    
 });
 
 module.exports = app => app.use('/repos', router);
