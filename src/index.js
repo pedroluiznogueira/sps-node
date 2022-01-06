@@ -7,15 +7,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post('/', async (req, res) => {
-    try {
-        const user = req.body;
-        await User.create(user);
-        return res.send({ message: 'created' });
-    } catch (err) {
-        console.log(err);
-        return res.status(400).send(err);
-    }
-});
+require('./app/controllers/userController')(app);
 
 app.listen(3000);
