@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "b": "git push origin feature/user-auth-flow"
+    "b": "git push origin feature/repo-flow"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +14,9 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
     "express": "^4.17.2",
+    "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.5"
+    "mongoose": "^6.1.5",
+    "path": "^0.12.7"
   }
 }

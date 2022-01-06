@@ -52,7 +52,7 @@ router.post('/authenticate', async (req, res) => {
     } catch (err) {
         return res.status(404).send({status: 404, message: 'failed to authenticate', error: err.message});
     }
-})
+});
 
 // base request mapping for user controller
 module.exports = app => app.use('/users', router); 
