@@ -14,6 +14,8 @@ const generateToken = (params = {}) => {
 router.post('/register', async (req, res) => {
     const { email } = req.body;
 
+    console.log(req.body);
+
     try {
         if (await User.findOne( {email} ))
             return res.status(400).send({message: 'email already exists'})
@@ -33,6 +35,8 @@ router.post('/register', async (req, res) => {
 
 router.post('/authenticate', async (req, res) => {
     const { email, password } = req.body;
+
+    console.log(req.body);
     
     try {
         // revert the select = false property in model
