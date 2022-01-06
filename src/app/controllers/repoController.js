@@ -21,8 +21,11 @@ router.post('/add/:id', async (req, res) => {
     }
 });
 
-router.get('/find/all', async function (req, res) {
-    
+router.get('/find/all/:id', async function (req, res) {
+    const id = req.params.id;
+
+    const user = await User.findById({ _id:id });
+    return res.send({ repos: user.repos });
 });
 
 module.exports = app => app.use('/repos', router);
