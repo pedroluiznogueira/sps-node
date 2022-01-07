@@ -75,3 +75,5 @@
 1. Dê <b>Fork</b> neste projeto
 2. Faça suas mudanças e suba-às para o seu repositório forkeado
 3. Abra um Pull Request para a branch <b>DEVELOPER</b> deste projeto
+
+<hr>
