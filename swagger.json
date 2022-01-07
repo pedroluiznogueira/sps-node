@@ -1,0 +1,158 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Github repos API",
+        "description": "Github repos management API",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "User",
+            "description": "User end-points"
+        },
+        {
+            "name": "Repo",
+            "description": "Repositories end-points"
+        }
+    ],
+    "schemes": ["http"],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/users/register": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Register a user",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "description": "name of the user",
+                        "type": "string"
+                    },
+                    {
+                        "email": "email",
+                        "in": "query",
+                        "required": true,
+                        "description": "email of the user",
+                        "type": "string"
+                    },
+                    {
+                        "password": "password",
+                        "in": "query",
+                        "required": true,
+                        "description": "password of the user",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/users/authenticate": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Login as user",
+                "parameters": [
+                    {
+                        "email": "email",
+                        "in": "query",
+                        "required": true,
+                        "description": "email of the user",
+                        "type": "string"
+                    },
+                    {
+                        "password": "password",
+                        "in": "query",
+                        "required": true,
+                        "description": "password of the user",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/repos/add/:userid": {
+            "post": {
+                "tags": ["Repo"],
+                "summary": "Add new Repo to a specific user",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "required": true,
+                        "description": "new repo name",
+                        "type": "string"
+                    },
+                    {
+                        "owner": "owner",
+                        "in": "query",
+                        "required": true,
+                        "description": "repo owner github username",
+                        "type": "string"
+                    },
+                    {
+                        "url": "url",
+                        "in": "query",
+                        "required": true,
+                        "description": "repo github url",
+                        "type": "string"
+                    }
+                ] 
+            }
+        },
+        "/find/all/:userid": {
+            "get": {
+                "tags": ["Repo"],
+                "summary": "Find all repos from a specific user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "user id that you want to find the repos with",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/find/by/name/:reponame/by/id/:userid": {
+            "get": {
+                "tags": ["Repo"],
+                "summary": "Find a repo by name in the repo list of a specific user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "user id that you want to find the list to search on",
+                        "type": "string"
+                    }
+                ] 
+            }
+        },
+        "/delete/by/name/:reponame/by/id/:userid": {
+            "delete": {
+                "tags": ["Repo"],
+                "summary": "Delete a specific repo by name from a specific user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "required": true,
+                        "description": "user id that you want to delete a repo from",
+                        "type": "string"
+                    }
+                ] 
+            }
+        }
+
+
+
+
+    }
+}
