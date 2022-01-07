@@ -2,11 +2,11 @@
 <hr>
 <h2>Sumário desta Documentação</h2>
 <ul>
-  <li><a href="rodando">Rodando o projeto na sua máquina</a></li>
-  <li><a href="config">Configuração do MongoDB</a></li>
-  <li><a href="rel">Relacionando sua conexão do MongoDB ao projeto</a></li>
-  <li><a href="doc">Documentação da API com Swagger UI</a></li>
-  <li><a href="contr">Como contribuir</a></li>
+  <li><a href="#rodando">Rodando o projeto na sua máquina</a></li>
+  <li><a href="#config">Configuração do MongoDB</a></li>
+  <li><a href="#rel">Relacionando sua conexão do MongoDB ao projeto</a></li>
+  <li><a href="#doc">Documentação da API com Swagger UI</a></li>
+  <li><a href="#contr">Como contribuir</a></li>
 </ul>
 <hr>
 
